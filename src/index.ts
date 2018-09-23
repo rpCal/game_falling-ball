@@ -325,7 +325,7 @@ const prepareApp = () => {
         }
 
         if(isTouchStarted){
-            let multiplier = Math.min(Math.abs(diffTouchPointX) * 0.03, 1);
+            let multiplier = Math.min(Math.abs(diffTouchPointX) * 0.005, 1);
             predkoscSkretu = maxPredkoscSkretu * multiplier * kierunekPrzyspieszenia;
         }else{
             predkoscSkretu = predkoscSkretu + (przyspieszenieSkretu * kierunekPrzyspieszenia);
