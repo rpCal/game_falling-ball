@@ -308,6 +308,7 @@ const prepareApp = () => {
             listaGrzed.splice(i, 1);
         }
         gameOverInfo.style.display = "none"
+        gameOverBestScor.style.display = "none";
     }
 
     gameOverInfo.addEventListener('click', resetGame);
