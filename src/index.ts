@@ -43,7 +43,7 @@ const prepareApp = () => {
     kurak.appendChild(kurkaImage);
 
     let gameOverInfo:HTMLElement = document.createElement('div');
-    gameOverInfo.innerHTML = "Jeszcze raz"
+    gameOverInfo.innerHTML = "PONOWNIE"
     gameOverInfo.style.width = `60%`;
     gameOverInfo.style.height = `70px`;
     gameOverInfo.style.position = "absolute";
