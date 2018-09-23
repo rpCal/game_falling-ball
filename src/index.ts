@@ -23,7 +23,7 @@ const prepareApp = () => {
     kurak.style.left = `${kurakLeft}px`;
 
     let kurkaImage:HTMLImageElement = document.createElement('img');
-    kurkaImage.src = "/images/chicken.png";
+    kurkaImage.src = "./images/chicken.png";
     kurkaImage.style.width = "100%"
     kurkaImage.style.height = "auto";
     kurak.appendChild(kurkaImage);
