@@ -43,7 +43,7 @@ const prepareApp = () => {
     kurak.appendChild(kurkaImage);
 
     let gameOverInfo:HTMLElement = document.createElement('div');
-    gameOverInfo.innerHTML = "KONIEC MARZEŃ!"
+    gameOverInfo.innerHTML = "Jeszcze raz"
     gameOverInfo.style.width = `60%`;
     gameOverInfo.style.height = `70px`;
     gameOverInfo.style.position = "absolute";
@@ -229,7 +229,6 @@ const prepareApp = () => {
     let poczatkowPredkoscSpadania = 1.4;
     let przyspieszeniePredkosciSpadania = 0.001;
     let aktualnaPredkoscSpadania = poczatkowPredkoscSpadania;
-    let przyspieszenieSkretuDefault = 1;
     let przyspieszenieSkretu = 1;
     let maxPredkoscSkretu = 6;
     let predkoscSkretu = 0;
@@ -391,12 +390,14 @@ const prepareApp = () => {
 
             let _kurakLeft = parseInt(kurak.style.left)
             let _kurakTop = parseInt(kurak.style.top) 
-            let offsetBounds = 5;
+            let _kurakWidth = parseInt(kurak.style.width)
+            let _kurakHeight = parseInt(kurak.style.height)
+            let offsetBounds = _kurakWidth * 0.2;
             let r3 = {
                 top: _kurakTop + offsetBounds,
                 left: _kurakLeft + offsetBounds,
-                right: _kurakLeft + parseInt(kurak.style.width) - offsetBounds,
-                bottom: _kurakTop + parseInt(kurak.style.height) - offsetBounds
+                right: _kurakLeft + _kurakWidth - offsetBounds,
+                bottom: _kurakTop + _kurakHeight - offsetBounds
             } as Bounds
 
             let c1 = intersectRect(r1, r3)
