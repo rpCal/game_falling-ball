@@ -21,6 +21,7 @@ const prepareApp = () => {
     const kurakHeight =  kurakWidth; //kurakWidth * (16 / 9);
     let kurakTop = ((1/4) * gameHeight) - (kurakHeight / 2); 
     let kurakLeft = ((1/2) * gameWidth) - (kurakWidth / 2); 
+    let gameHighScore = 1;
     
     let gameWrapper = document.createElement('div');
     gameWrapper.style.height = `${gameHeight}px`;
@@ -42,12 +43,47 @@ const prepareApp = () => {
     kurkaImage.style.height = "auto";
     kurak.appendChild(kurkaImage);
 
+
+
+    let gameOverBestScor:HTMLElement = document.createElement('div');
+    gameOverBestScor.style.width = `60%`;
+    gameOverBestScor.style.height = `110px`;
+    gameOverBestScor.style.position = "absolute";
+    gameOverBestScor.style.top = `${kurakTop + kurakHeight - 5}px`;
+    gameOverBestScor.style.left = `20%`;
+    gameOverBestScor.style.borderRadius = '8px'
+    gameOverBestScor.style.fontSize = "20px"
+    gameOverBestScor.style.textAlign = 'center'
+    gameOverBestScor.style.background = "#cba"
+    gameOverBestScor.style.color = "#fff"
+    gameOverBestScor.style.lineHeight = "70px"
+    gameOverBestScor.style.fontFamily = "cursive";
+    gameOverBestScor.style.display = `none`;
+
+    let bestScoreTitle:HTMLElement = document.createElement('div');
+    bestScoreTitle.innerHTML = `NAJLEPSZY WYNIK`;
+    bestScoreTitle.style.fontSize = `18px`;
+    bestScoreTitle.style.margin = `0px`;
+    bestScoreTitle.style.lineHeight = `50px`;
+    gameOverBestScor.appendChild(bestScoreTitle);
+
+    let bestScoreInfo:HTMLElement = document.createElement('div');
+    bestScoreInfo.innerHTML = `${gameHighScore}1x`;
+    bestScoreInfo.style.fontSize = `40px`;
+    bestScoreInfo.style.lineHeight = `40px`;
+    gameOverBestScor.appendChild(bestScoreInfo);
+
+    gameWrapper.appendChild(gameOverBestScor)
+
+
+
+
     let gameOverInfo:HTMLElement = document.createElement('div');
     gameOverInfo.innerHTML = "PONOWNIE"
     gameOverInfo.style.width = `60%`;
     gameOverInfo.style.height = `70px`;
     gameOverInfo.style.position = "absolute";
-    gameOverInfo.style.top = `${gameHeight / 2  - 100/2}px`;
+    gameOverInfo.style.top = `${kurakTop + kurakHeight + 110 + 20}px`;
     gameOverInfo.style.left = `20%`;
     gameOverInfo.style.borderRadius = '150px'
     gameOverInfo.style.fontSize = "20px"
@@ -59,52 +95,60 @@ const prepareApp = () => {
     gameOverInfo.style.display = `none`;
     gameWrapper.appendChild(gameOverInfo)
 
+
+
     let grzadkiWrapper = document.createElement('div');
 
     let uiWrapper = document.createElement('div');
     uiWrapper.style.position = "absolute";
     uiWrapper.style.top = "0px"
     uiWrapper.style.left = "0px"
-    uiWrapper.style.width = "100%;"
+    uiWrapper.style.width = "100%"
     uiWrapper.style.height = "50px"
 
     let uiCzasTrwania = document.createElement('div');
     uiCzasTrwania.innerHTML = "0s";
-    uiCzasTrwania.style.position = "absolute";
+    uiCzasTrwania.style.position = "relative";
     uiCzasTrwania.style.top = "0px"
+    uiCzasTrwania.style.display = "inline-block"
     uiCzasTrwania.style.left = "0px"
-    uiCzasTrwania.style.width = "80px";
-    uiCzasTrwania.style.border = "1px solid #eee";
+    uiCzasTrwania.style.width = "calc(100% / 3)";
+    uiCzasTrwania.style.border = "0px solid #eee";
     uiCzasTrwania.style.fontSize = "25px"
     uiCzasTrwania.style.lineHeight = "50px"
-    uiCzasTrwania.style.color = "#bbb";
+    uiCzasTrwania.style.color = "#fff";
     uiCzasTrwania.style.textAlign = "center"
-    uiWrapper.appendChild(uiCzasTrwania)
+    uiCzasTrwania.style.background = "#6A6"
+    uiWrapper.appendChild(uiCzasTrwania);
 
     let uiPredkoscSpadania = document.createElement('div');
     uiPredkoscSpadania.innerHTML = "0 m/s";
-    uiPredkoscSpadania.style.position = "absolute";
+    uiPredkoscSpadania.style.position = "relative";
     uiPredkoscSpadania.style.top = "0px"
-    uiPredkoscSpadania.style.left = "80px"
-    uiPredkoscSpadania.style.width = "120px";
-    uiPredkoscSpadania.style.border = "1px solid #eee";
+    uiPredkoscSpadania.style.display = "inline-block"
+    uiPredkoscSpadania.style.left = "0px";
+    uiPredkoscSpadania.style.width = "calc(100% / 3)";
+    uiPredkoscSpadania.style.border = "0px solid #eee";
     uiPredkoscSpadania.style.fontSize = "25px"
     uiPredkoscSpadania.style.lineHeight = "50px"
-    uiPredkoscSpadania.style.color = "#bbb";
+    uiPredkoscSpadania.style.color = "#fff";
     uiPredkoscSpadania.style.textAlign = "center"
+    uiPredkoscSpadania.style.background = "#6A6"
     uiWrapper.appendChild(uiPredkoscSpadania)
 
     let uiMinietychGrzad = document.createElement('div');
     uiMinietychGrzad.innerHTML = "0x";
-    uiMinietychGrzad.style.position = "absolute";
+    uiMinietychGrzad.style.position = "relative";
+    uiMinietychGrzad.style.display = "inline-block"
     uiMinietychGrzad.style.top = "0px"
-    uiMinietychGrzad.style.left = "200px"
-    uiMinietychGrzad.style.width = "80px";
-    uiMinietychGrzad.style.border = "1px solid #eee";
+    uiMinietychGrzad.style.left = "0px"
+    uiMinietychGrzad.style.width = "calc(100% / 3)";
+    uiMinietychGrzad.style.border = "0px solid #eee";
     uiMinietychGrzad.style.fontSize = "25px"
     uiMinietychGrzad.style.lineHeight = "50px"
-    uiMinietychGrzad.style.color = "#bbb";
+    uiMinietychGrzad.style.color = "#fff";
     uiMinietychGrzad.style.textAlign = "center"
+    uiMinietychGrzad.style.background = "#6A6"
     uiWrapper.appendChild(uiMinietychGrzad)
 
     type Grzeda = {
@@ -405,8 +449,12 @@ const prepareApp = () => {
 
             if(c1 || c2){
                 isGameOver = true;
+                if(liczbaMinietychGrzad > gameHighScore){
+                    gameHighScore = liczbaMinietychGrzad;
+                }
+                bestScoreInfo.innerHTML = `${gameHighScore}x`;
                 gameOverInfo.style.display = "block"
-
+                gameOverBestScor.style.display = "block";
                 kurkaImage.src = './images/chicken_end.png';
             }
             
