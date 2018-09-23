@@ -3,7 +3,7 @@ const prepareApp = () => {
     
     const gameWidth = 380;
     const gameHeight = 600;
-    const kurakWidth = gameWidth / 7; 
+    const kurakWidth = gameWidth / 4; 
     const kurakHeight =  kurakWidth; //kurakWidth * (16 / 9);
     let kurakTop = ((1/4) * gameHeight) - (kurakHeight / 2); 
     let kurakLeft = ((1/2) * gameWidth) - (kurakWidth / 2); 
@@ -196,6 +196,13 @@ const prepareApp = () => {
     let predkoscSkretu = 0;
     let maxPredkosc = 10;
     let isGameOver = false;
+    let chickenAnimationFrameCounter = 0;
+    let chickenAnimationFrameIndex = 0;
+    let chickenAnimationFramesUrl = [
+        './images/chicken.png',
+        './images/chicken_fly.png'
+    ]
+    let chickenAnimationTime = ONE_SECOUND / 2;
 
     const getRandomInt = (min:number, max:number) => {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -232,11 +239,20 @@ const prepareApp = () => {
             }
             return false;
         }
+        
         licznikGenerowaniaGrzedy = licznikGenerowaniaGrzedy + FIXED_DELTA_TIME
         czasSpadania = czasSpadania + FIXED_DELTA_TIME;
+        
         aktualnaPredkoscSpadania = aktualnaPredkoscSpadania + przyspieszeniePredkosciSpadania;
         if(aktualnaPredkoscSpadania > maxPredkosc){
             aktualnaPredkoscSpadania = maxPredkosc;
+        }
+
+        chickenAnimationFrameCounter = chickenAnimationFrameCounter + FIXED_DELTA_TIME;
+        if(chickenAnimationFrameCounter > chickenAnimationTime){
+            chickenAnimationFrameCounter = 0;
+            chickenAnimationFrameIndex = (chickenAnimationFrameIndex + 1) % chickenAnimationFramesUrl.length;
+            kurkaImage.src = chickenAnimationFramesUrl[chickenAnimationFrameIndex];
         }
 
         let kierunekPrzyspieszenia = 0;
@@ -253,6 +269,8 @@ const prepareApp = () => {
         }
 
         predkoscSkretu = predkoscSkretu + (przyspieszenieSkretu * kierunekPrzyspieszenia);
+        let rotate = kierunekPrzyspieszenia * 15 * -1;
+        kurkaImage.style.transform = `rotate(${rotate}deg)`;
         
         if(predkoscSkretu >= maxPredkoscSkretu){
             predkoscSkretu = maxPredkoscSkretu;
@@ -325,6 +343,8 @@ const prepareApp = () => {
             if(c1 || c2){
                 isGameOver = true;
                 gameOverInfo.style.display = "block"
+
+                kurkaImage.src = './images/chicken_end.png';
             }
             
             if(newTop + height <= 0){
@@ -333,9 +353,13 @@ const prepareApp = () => {
             }
         }
 
+        
+
         uiCzasTrwania.innerHTML = `${(czasSpadania / ONE_SECOUND).toFixed(1)}s`;
         uiPredkoscSpadania.innerHTML = `${aktualnaPredkoscSpadania.toFixed(1)} m/s`
         uiMinietychGrzad.innerHTML = `${liczbaMinietychGrzad}x`;
+
+        
     }
 
     let lastUpdateTime = new Date().getTime();
